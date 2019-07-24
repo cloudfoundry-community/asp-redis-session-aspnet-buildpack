@@ -152,7 +152,6 @@ class Build : NukeBuild
         .Description("Creates a GitHub release (or ammends existing) and uploads buildpack artifact")
         .Requires(() => GitHubToken)
         .Requires(() => BuildVersion)
-    .DependsOn(Publish)
         .Executes(async () =>
         {
             if (!GitRepository.IsGitHubRepository())
