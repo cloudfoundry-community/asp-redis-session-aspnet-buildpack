@@ -1,5 +1,9 @@
 ### Redis Session Buildpack
 
+[![Build Status](https://dev.azure.com/ajaganathan-cloudfoundry-community/redis-session-aspnet-buildpack/_apis/build/status/cloudfoundry-community.redis-session-aspnet-buildpack?branchName=master)](https://dev.azure.com/ajaganathan-cloudfoundry-community/redis-session-aspnet-buildpack/_build/latest?definitionId=3&branchName=master)
+
+[![GitHub](https://img.shields.io/github/release/cloudfoundry-community/redis-session-aspnet-buildpack.svg?style=flat-square)](https://github.com/cloudfoundry-community/redis-session-aspnet-buildpack/releases)
+
 This is a supply buildpack that will detect the bounded redis service instance and modifies the `web.config` with the `sessionState` and `machineKey` sections.
 - Uses Steeltoe connectors to build the connection configuration
 - Any existing `sessionState` section(s) will be replaced with a custom one with valid connection string
