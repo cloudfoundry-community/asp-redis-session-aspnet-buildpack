@@ -16,6 +16,7 @@ variables:
   BuildSuffix: $[counter(variables['GitVersion'], 0)]
   BuildVersion: $(GitVersion)-$(BuildSuffix)
 
+  GitFolder: '.git'
   SolutionFile: 'Pivotal.Redis.Aspnet.Session.Buildpack.sln'
   ArtifactsDirectory: 'artifacts'
 
