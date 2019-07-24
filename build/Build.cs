@@ -168,7 +168,15 @@ class Build : NukeBuild
             var owner = gitIdParts[0];
             var repoName = gitIdParts[1];
 
-            var releaseName = IsPreRelease ? $"v{GitVersion.MajorMinorPatch}-prerelease" : $"v{GitVersion.MajorMinorPatch}";
+            var packageFileNamewithoutExtension = Path.GetFileNameWithoutExtension(PackageZipName);
+            var majorMinorPatch = string.Empty;
+
+            if (GitVersion == null)
+                majorMinorPatch = packageFileNamewithoutExtension.Split('-')[2];
+            else
+                majorMinorPatch = GitVersion.MajorMinorPatch;
+
+            var releaseName = IsPreRelease ? $"v{majorMinorPatch}-prerelease" : $"v{majorMinorPatch}";
 
             Release release;
             try
@@ -191,7 +199,7 @@ class Build : NukeBuild
                 release = await client.Repository.Release.Create(owner, repoName, newRelease);
             }
 
-            var targetPackageName = IsPreRelease ? $"{Path.GetFileNameWithoutExtension(PackageZipName)}-prerelease.zip" : PackageZipName;
+            var targetPackageName = IsPreRelease ? $"{packageFileNamewithoutExtension}-prerelease.zip" : PackageZipName;
 
             var existingAsset = release.Assets.FirstOrDefault(x => x.Name == targetPackageName);
             if (existingAsset != null)
