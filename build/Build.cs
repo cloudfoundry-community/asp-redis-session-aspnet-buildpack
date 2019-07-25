@@ -182,7 +182,7 @@ class Build : NukeBuild
             var repoName = gitIdParts[1];
 
             var packageFileNamewithoutExtension = Path.GetFileNameWithoutExtension(GetPackageZipNameFromVersionFile());
-            var majorMinorPatch = packageFileNamewithoutExtension.Split('-')[2];
+            var majorMinorPatch = packageFileNamewithoutExtension.Split('-')[3];
 
             var releaseName = IsPreRelease ? $"v{majorMinorPatch}-prerelease" : $"v{majorMinorPatch}";
 
