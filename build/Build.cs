@@ -219,6 +219,9 @@ class Build : NukeBuild
             var zipPackageLocation = ArtifactsDirectory / GetPackageZipNameFromVersionFile();
             var targetZipPackageLocation = ArtifactsDirectory / targetPackageName;
 
+            Logger.Log(LogLevel.Error, $"zipPackageLocation {zipPackageLocation}");
+            Logger.Log(LogLevel.Error, $"targetZipPackageLocation {targetZipPackageLocation}");
+
             if (zipPackageLocation != targetZipPackageLocation)
                 File.Copy(zipPackageLocation, targetZipPackageLocation, true);
 
