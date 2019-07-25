@@ -221,8 +221,9 @@ class Build : NukeBuild
 
             Logger.Log(LogLevel.Error, $"zipPackageLocation {zipPackageLocation}");
             Logger.Log(LogLevel.Error, $"targetZipPackageLocation {targetZipPackageLocation}");
+            Logger.Log(LogLevel.Error, $"Compare {string.Compare(zipPackageLocation, targetZipPackageLocation)}");
 
-            if (zipPackageLocation != targetZipPackageLocation)
+            if (string.Compare(zipPackageLocation, targetZipPackageLocation) != 0)
                 File.Copy(zipPackageLocation, targetZipPackageLocation, true);
 
             var releaseAssetUpload = new ReleaseAssetUpload(targetPackageName, "application/zip", File.OpenRead(targetZipPackageLocation), null);
