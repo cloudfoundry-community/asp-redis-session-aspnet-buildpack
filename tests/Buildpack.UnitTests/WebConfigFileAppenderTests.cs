@@ -2,6 +2,7 @@
 using Pivotal.Redis.Aspnet.Session.Buildpack;
 using System;
 using System.IO;
+using XmlDiffLib;
 using Xunit;
 
 namespace Buildpack.UnitTests
@@ -80,22 +81,21 @@ namespace Buildpack.UnitTests
 
         private void AppendAndCompare(string configFilePath, string appendedConfigFilePath)
         {
-            Assert.True(true);
-            // File.Copy(configFilePath, appendedConfigFilePath, true);
-            //
-            // options.WebConfigFilePath = appendedConfigFilePath;
-            //
-            // using (var appender = new WebConfigFileAppender(options, logger, new RedisConnectionProviderStub(), new CryptoGeneratorStub()))
-            //     appender.ApplyChanges();
-            //
-            // var expectedWebConfig = File.ReadAllText(expectedConfigPath);
-            // var appendedWebConfig = File.ReadAllText(appendedConfigFilePath);
-            //
-            // var diff = new XmlDiff(expectedWebConfig, appendedWebConfig);
-            //
-            // diff.CompareDocuments(new XmlDiffOptions() { IgnoreAttributeOrder = true, IgnoreCase = true, TrimWhitespace = true });
-            //
-            // Assert.Empty(diff.DiffNodeList);
+            File.Copy(configFilePath, appendedConfigFilePath, true);
+            
+            options.WebConfigFilePath = appendedConfigFilePath;
+            
+            using (var appender = new WebConfigFileAppender(options, logger, new RedisConnectionProviderStub(), new CryptoGeneratorStub()))
+                appender.ApplyChanges();
+            
+            var expectedWebConfig = File.ReadAllText(expectedConfigPath);
+            var appendedWebConfig = File.ReadAllText(appendedConfigFilePath);
+            
+            var diff = new XmlDiff(expectedWebConfig, appendedWebConfig);
+            
+            diff.CompareDocuments(new XmlDiffOptions() { IgnoreAttributeOrder = true, IgnoreCase = true, TrimWhitespace = true });
+            
+            Assert.Empty(diff.DiffNodeList);
         }
     }
 
